@@ -16,6 +16,6 @@ if [ "$TRAVIS_PULL_REQUEST" == 'false' ]; then
   if [ "$TRAVIS_BRANCH" = 'master' ] || [ -n "$TRAVIS_TAG" ]; then
     openssl aes-256-cbc -K $encrypted_3520b47862d7_key -iv $encrypted_3520b47862d7_iv -in travis/cloudshare.asc.enc -out travis/cloudshare.asc -d
     gpg --fast-import travis/cloudshare.asc
-    mvn deploy -P sign --settings travis/mvnsettings.xml -Drat.skip
+    mvn deploy -P sign --settings travis/mvnsettings.xml -Drat.skip -DskipTests
   fi
 fi
