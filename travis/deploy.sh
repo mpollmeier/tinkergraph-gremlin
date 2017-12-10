@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [ "$TRAVIS_BRANCH" = 'master' ] && [ "$TRAVIS_PULL_REQUEST" == 'false' ]; then
+if [ "$TRAVIS_PULL_REQUEST" == 'false' ]; then
+  if [ "$TRAVIS_BRANCH" = 'master' ] || [ -n "$TRAVIS_TAG" ]; then
+    openssl aes-256-cbc -K $encrypted_3520b47862d7_key -iv $encrypted_3520b47862d7_iv -in travis/cloudshare.asc.enc -out travis/cloudshare.asc -d
+    gpg --fast-import travis/cloudshare.asc
     mvn deploy -P sign --settings travis/mvnsettings.xml -Drat.skip
+  fi
 fi
